@@ -1,6 +1,7 @@
 require 'net/https'
 require 'httparty'
 require 'pry'
+require 'pry-byebug'
 
 module Zype
   class Client
@@ -37,7 +38,7 @@ module Zype
         @required ||= false
         unless @required
           for model in models
-            require [@model_path, model].join('/')
+            require [@model_path, "#{model}.rb"].join('/')
           end
           for collection in collections
             require [@model_path, collection].join('/')
@@ -85,7 +86,7 @@ module Zype
       end
     end
 
-    model_path 'zype/models'
+    model_path '/Users/dbrandt/Projects/zype-cli/lib/zype/models'
 
     model :account
     model :category
@@ -121,7 +122,8 @@ module Zype
     include HTTParty
 
     def initialize
-      @headers = { "Content-Type" => "application/json", "x-zype-key" => Zype.configuration.api_key }
+      #@headers = { "Content-Type" => "application/json", "x-app-key" => Zype.configuration.api_key }
+      @headers = { "Content-Type" => "application/json"}
       self.class.base_uri set_base_uri
     end
 
@@ -130,28 +132,29 @@ module Zype
     end
 
     def get(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless params = api_key_param
 
       # iterate through and remove params that are nil
       params.delete_if { |k, v| v.nil? }
 
+      byebug
       self.class.get(path, { query: params, headers: @headers })
     end
 
     def post(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless param = api_key_param
 
       self.class.post(path, { query: params, headers: @headers })
     end
 
     def put(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless params = api_key_param
 
       self.class.put(path, { query: params, headers: @headers })
     end
 
     def delete(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless param = api_key_param
 
       self.class.delete(path, { query: params, headers: @headers })
     end
@@ -163,6 +166,11 @@ module Zype
     def error!(status,response)
       error_type = ERROR_TYPES[status] || GenericError
       raise error_type.new(response['message'])
+    end
+
+    def api_key_param
+      return unless Zype.configuration.api_key
+      { app_key: Zype.configuration.api_key }
     end
 
     def set_base_uri

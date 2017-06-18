@@ -1,19 +1,19 @@
 require 'hirb'
-require "thor"
-require 'zype/auth'
-require "zype/commands/account"
-require "zype/commands/category"
-require "zype/commands/consumer"
-require "zype/commands/device"
-require "zype/commands/device_category"
-require "zype/commands/plan"
-require "zype/commands/playlist"
-require "zype/commands/revenue_model"
-require "zype/commands/subscription"
-require "zype/commands/video"
-require "zype/commands/zobject"
-require "zype/commands/zobject_type"
-require "zype/progress_bar"
+require "thor.rb"
+require './zype/auth'
+require "./zype/commands/account.rb"
+require "./zype/commands/category.rb"
+require "./zype/commands/consumer.rb"
+require "./zype/commands/device.rb"
+require "./zype/commands/device_category.rb"
+require "./zype/commands/plan.rb"
+require "./zype/commands/playlist.rb"
+require "./zype/commands/revenue_model.rb"
+require "./zype/commands/subscription.rb"
+require "./zype/commands/video.rb"
+require "./zype/commands/zobject.rb"
+require "./zype/commands/zobject_type.rb"
+require "./zype/progress_bar.rb"
 
 
 module Zype

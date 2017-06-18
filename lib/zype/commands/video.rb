@@ -1,6 +1,6 @@
 require 'thor'
-require 'zype/progress_bar'
-require 'zype/uploader'
+require './zype/progress_bar.rb'
+require './zype/uploader.rb'
 
 module Zype
   class Commands < Thor

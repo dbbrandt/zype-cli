@@ -1,5 +1,5 @@
 require 'thor'
-require 'zype/file_reader'
+require './zype/file_reader.rb'
 
 module Zype
   class Commands < Thor

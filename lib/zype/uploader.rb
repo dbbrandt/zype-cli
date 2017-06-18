@@ -1,5 +1,5 @@
 require 'aws-sdk'
-require 'zype/file_reader'
+require './zype/file_reader.rb'
 
 module Zype
   class Uploader

@@ -1,12 +1,21 @@
 require 'hashie'
 require 'multi_json'
 
-require File.join(File.dirname(__FILE__), 'zype', 'helpers')
+#require File.join(File.dirname(__FILE__), 'zype', 'helpers')
 
-require File.join(File.dirname(__FILE__), 'zype', 'client')
-require File.join(File.dirname(__FILE__), 'zype', 'collection')
-require File.join(File.dirname(__FILE__), 'zype', 'configuration')
-require File.join(File.dirname(__FILE__), 'zype', 'model')
+#require File.join(File.dirname(__FILE__), 'zype', 'client')
+#require File.join(File.dirname(__FILE__), 'zype', 'collection')
+#require File.join(File.dirname(__FILE__), 'zype', 'configuration')
+#require File.join(File.dirname(__FILE__), 'zype', 'model')
+
+require './zype/helpers.rb'
+
+require './zype/client.rb'
+require './zype/collection.rb'
+require './zype/configuration.rb'
+require './zype/model.rb'
+
+
 
 module Zype
 

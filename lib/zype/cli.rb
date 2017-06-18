@@ -1,5 +1,5 @@
-require 'zype'
-require 'zype/commands'
+require './zype.rb'
+require './zype/commands.rb'
 
 module Zype
   class CLI
