@@ -123,7 +123,7 @@ module Zype
     def initialize
       @headers = { "Content-Type" => "application/json" }
       @headers["x-zype-key"] = Zype.configuration.api_key if Zype.configuration.api_key
-      @params =  Zype.configuration.app_key ? { app_key: Zype.configuration.app_key } : {}
+      @params =  Zype.configuration.app_key ? { app_key: Zype.configuration.app_key } : { app_key: ENV["ZYPE_APP_KEY"] }
       self.class.base_uri set_base_uri
     end
 
@@ -133,6 +133,7 @@ module Zype
 
     def get(path,params={})
       raise NoApiKey unless set_keys(params)
+      puts "The params for get are: #{params.inspect}"
 
       # iterate through and remove params that are nil
       params.delete_if { |k, v| v.nil? }
