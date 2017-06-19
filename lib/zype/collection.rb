@@ -65,7 +65,7 @@ module Zype
           load_pagination(response)
         end
       else
-        raise(ArgumentError.new("Initialization parameters must be a Hash or Array, got #{attributes.class}"))
+        raise(ArgumentError.new("Response data must be Hash or Array. Resopnse Message: #{response["message"]}"))
       end
 
       self
