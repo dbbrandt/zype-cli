@@ -4,6 +4,5 @@ require './zype/commands.rb'
 #require 'pry-byebug'
 
 commands = Zype::Commands.new
-commands.init_client
-zype = commands.instance_variable_get(:@zype)
+zype = commands.init_client
 puts zype.videos.all
