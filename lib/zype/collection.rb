@@ -54,7 +54,7 @@ module Zype
     def load(response={})
       clear
 
-      if data = response["response"]
+      if data = response["response"]  
         if data.is_a?(Hash)
           return model.new({:service => service}.merge(data))
         elsif data.is_a?(Array)
@@ -65,7 +65,7 @@ module Zype
           load_pagination(response)
         end
       else
-        raise(ArgumentError.new("Initialization parameters must be a Hash or Array, got #{attributes.class}"))
+        raise(ArgumentError.new("Response data must be Hash or Array. Resopnse Message: #{response["message"]}"))
       end
 
       self

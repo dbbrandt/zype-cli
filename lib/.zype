@@ -1,0 +1,6 @@
+---
+app_key: 
+api_key:
+host: api.zype.com
+port: 443
+use_ssl: true
