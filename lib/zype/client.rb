@@ -121,7 +121,9 @@ module Zype
     include HTTParty
 
     def initialize
-      @headers = { "Content-Type" => "application/json", "x-zype-key" => Zype.configuration.api_key }
+      @headers = { "Content-Type" => "application/json" }
+      @headers["x-zype-key"] = Zype.configuration.api_key if Zype.configuration.api_key
+      @params =  Zype.configuration.app_key ? { app_key: Zype.configuration.app_key } : {}
       self.class.base_uri set_base_uri
     end
 
@@ -130,30 +132,30 @@ module Zype
     end
 
     def get(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless set_keys(params)
 
       # iterate through and remove params that are nil
       params.delete_if { |k, v| v.nil? }
 
-      self.class.get(path, { query: params, headers: @headers })
+      self.class.get(path, { query: @params, headers: @headers })
     end
 
     def post(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless set_keys(params)
 
-      self.class.post(path, { query: params, headers: @headers })
+      self.class.post(path, { query: @params, headers: @headers })
     end
 
     def put(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless set_keys(params)
 
-      self.class.put(path, { query: params, headers: @headers })
+      self.class.put(path, { query: @params, headers: @headers })
     end
 
     def delete(path,params={})
-      raise NoApiKey if Zype.configuration.api_key.to_s.empty?
+      raise NoApiKey unless set_keys(params)
 
-      self.class.delete(path, { query: params, headers: @headers })
+      self.class.delete(path, { query: @params, headers: @headers })
     end
 
     def success!(status, response)
@@ -163,6 +165,11 @@ module Zype
     def error!(status,response)
       error_type = ERROR_TYPES[status] || GenericError
       raise error_type.new(response['message'])
+    end
+
+    def set_keys(params)
+      @params[:app_key] = params[:app_key] if params.key?(:app_key)
+      return @params.key?(:app_key) || @headers.key?("x-zype-key")
     end
 
     def set_base_uri
