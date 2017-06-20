@@ -1,6 +1,9 @@
 ---
-app_key: XWny5j0V89yb1uZu6SI_D95EADV5FzBYldE9Ny0_q0GOzcWLiruPyhN-f2Pcyohf
 api_key:
+app_key:
+client_id: 61255480307354ebd4d094482f2483adec9942637979aa5c3963ecbac469f943
+client_secret: 926e632b2aa9758f60dbdf2f8de13bebd9a04dfd602de4c257b3f8b4a97cf0b8
 host: api.zype.com
+oauth_host: login.zype.com
 port: 443
 use_ssl: true

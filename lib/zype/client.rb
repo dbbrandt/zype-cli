@@ -159,6 +159,15 @@ module Zype
       self.class.delete(path, { query: @params, headers: @headers })
     end
 
+    def login(params)
+      params[:client_id] = Zype.configuration.client_id
+      params[:client_secret] = Zype.configuration.client_secret
+      params[:grant_type] = "password"
+
+      self.class.base_uri set_base_uri(Zype.configuration.oauth_host)
+      self.class.post("/oauth/token", { query: params, headers: {} })
+    end
+
     def success!(status, response)
       response
     end
@@ -173,14 +182,15 @@ module Zype
       return @params.key?(:app_key) || @headers.key?("x-zype-key")
     end
 
-    def set_base_uri
+    def set_base_uri(host = nil, port = nil)
       if Zype.configuration.use_ssl
         start_url = 'https://'
       else
         start_url = 'http://'
       end
-
-      start_url + Zype.configuration.host + ':' + Zype.configuration.port.to_s
+      host_url = host.nil? ? Zype.configuration.host : host
+      host_port = port.nil? ? Zype.configuration.port.to_s : port
+      start_url + host_url + ':' + host_port
     end
   end
 end
