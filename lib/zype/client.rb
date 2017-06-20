@@ -1,6 +1,5 @@
 require 'net/https'
 require 'httparty'
-require 'pry'
 
 module Zype
   class Client

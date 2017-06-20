@@ -1,5 +1,5 @@
-require './zype.rb'
-require './zype/commands.rb'
+require 'zype.rb'
+require 'zype/commands'
 #require 'pry'
 #require 'pry-byebug'
 
